@@ -1,6 +1,7 @@
 let addToy = false;
 const addToyForm = document.querySelector(".add-toy-form");
 let newId = 0;
+
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
@@ -69,11 +70,7 @@ function appendToy(toyData) {
 function listToys() {
   fetch("http://localhost:3000/toys")
     .then(res => res.json())
-    .then(toys => {
-      toys.forEach(toy => {
-        appendToy(toy);
-      });
-    });
+    .then(toys => toys.forEach(toy => appendToy(toy))); // <- 10/10 looks super cool
 };
 
 addToyForm.onsubmit = (e) => {
@@ -92,7 +89,6 @@ addToyForm.onsubmit = (e) => {
     },
     body: JSON.stringify(newToyData)
   })
-    .then(res => res.json())
     .then(() => {
       appendToy(newToyData);
     });
