@@ -1,6 +1,6 @@
 let addToy = false;
 const addToyForm = document.querySelector(".add-toy-form");
-let newId = 1;
+let currentId = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
@@ -56,7 +56,7 @@ function createLike(nOfLikes) {
 }
 
 function appendToy(toyData) {
-  newId++;
+  currentId++;
   let toy = document.createElement("div");
   toy.className = 'card';
   toy.textContent = toyData.name;
@@ -77,7 +77,7 @@ addToyForm.onsubmit = (e) => {
   e.preventDefault();
   const { name, image } = e.target.elements; // <- chatGpts work, this is called Destruction
   const newToyData = {
-    id: newId,
+    id: currentId,
     name: name.value,
     image: image.value,
     likes: 0
