@@ -65,6 +65,12 @@
       "name": "Impatien Woody",
       "image": "https://i.pinimg.com/originals/98/9a/6e/989a6ed251b448e48507a19f806ab648.jpg",
       "likes": 4
+    },
+    {
+      "id": 11,
+      "name": "Average Developer",
+      "image": "https://cdn.shopify.com/s/files/1/0462/9181/2511/products/US691002a.jpg?v=1601232411",
+      "likes": 1
     }
   ]
 }

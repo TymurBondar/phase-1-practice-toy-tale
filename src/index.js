@@ -1,7 +1,6 @@
 let addToy = false;
 const addToyForm = document.querySelector(".add-toy-form");
 let newId = 0;
-
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
@@ -79,12 +78,11 @@ function listToys() {
 
 addToyForm.onsubmit = (e) => {
   e.preventDefault();
-  const name = e.target.querySelector('input[name="name"]');
-  const img = e.target.querySelector('input[name="image"]');
+  const { name, image } = e.target.elements; // <- chatGpts work, this is called Destruction
   const newToyData = {
     id: newId,
     name: name.value,
-    image: img.value,
+    image: image.value,
     likes: 0
   }
   fetch("http://localhost:3000/toys", {
@@ -92,17 +90,11 @@ addToyForm.onsubmit = (e) => {
     headers: {
       "Content-type": "application/json"
     },
-    body: JSON.stringify({
-      "id": newToyData.id,
-      "name": newToyData.name,
-      "image": newToyData.image,
-      "likes": newToyData.likes
-    })
+    body: JSON.stringify(newToyData)
   })
     .then(res => res.json())
     .then(() => {
       appendToy(newToyData);
     });
 }
-
 listToys();
