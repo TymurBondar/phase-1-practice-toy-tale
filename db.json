@@ -47,30 +47,6 @@
       "name": "Little Green Men",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
       "likes": 2
-    },
-    {
-      "id": 9,
-      "name": "Dad Woody",
-      "image": "https://pbs.twimg.com/media/EQZRj93U4AIG_WG.jpg",
-      "likes": 1
-    },
-    {
-      "id": 10,
-      "name": "Armed Woody",
-      "image": "https://i.pinimg.com/564x/68/fb/be/68fbbe8a3dd3455f25a554e80c6bc287--toy-story-woody.jpg",
-      "likes": 3
-    },
-    {
-      "id": 12,
-      "name": "Impatien Woody",
-      "image": "https://i.pinimg.com/originals/98/9a/6e/989a6ed251b448e48507a19f806ab648.jpg",
-      "likes": 4
-    },
-    {
-      "id": 11,
-      "name": "Average Developer",
-      "image": "https://cdn.shopify.com/s/files/1/0462/9181/2511/products/US691002a.jpg?v=1601232411",
-      "likes": 0
     }
   ]
 }
