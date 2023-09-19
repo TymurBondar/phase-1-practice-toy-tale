@@ -1,5 +1,6 @@
 let addToy = false;
 const addToyForm = document.querySelector(".add-toy-form");
+let newId = 9;
 
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
@@ -15,32 +16,71 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-addToyForm.onsubmit = (e) => {
-  e.preventDefault();
-  console.log("submitted");
+function createBtn(id) {
+  let btn = document.createElement("button")
+  btn.className = "like-btn";
+  btn.textContent = "Like ❤️";
+  btn.id = id;
+  return btn
 };
+
+function createImg(link) {
+  let img = document.createElement("img");
+  img.src = link;
+  img.className = "toy-avatar";
+  return img
+};
+
+function createLike(nOfLikes) {
+  let likes = document.createElement("p");
+  let likeCounter = document.createElement("span");
+  likeCounter.className = "like-counter";
+  likeCounter.textContent = nOfLikes;
+  likes.append(likeCounter);
+  likes.appendChild(document.createTextNode(" Likes"));
+  return likes
+}
+
+function appendToy(toyData) {
+  let toy = document.createElement("div");
+  toy.className = 'card';
+  toy.textContent = toyData.name;
+  let img = createImg(toyData.image);
+  let likes = createLike(toyData.likes);
+  let btn = createBtn(toyData.id);
+  toy.append(img, likes, btn);
+  return document.querySelector("#toy-collection").append(toy);
+}
 
 function listToys() {
   fetch("http://localhost:3000/toys")
-  .then(res => res.json())
-  .then(toys => {
-    toys.forEach(toy => {
-      let newToy = document.createElement("div");
-      newToy.className = 'card';
-      let newImage = document.createElement("img");
-      newImage.src = toy.image;
-      newImage.className = "toy-avatar";
-      let likes = document.createElement("p");
-      likes.textContent = `${toy.likes} Likes`
-      let likeBtn = document.createElement("button")
-      likeBtn.className = "like-btn";
-      likeBtn.id = toy.id;
-      likeBtn.textContent = "Like ❤️";
-      newToy.textContent = toy.name;
-      newToy.append(newImage, likes, likeBtn);
-      document.querySelector("#toy-collection").append(newToy);
-    });
-  })
+    .then(res => res.json())
+    .then(toys => {
+      toys.forEach(toy => {
+        appendToy(toy);
+      });
+      document.body.addEventListener('click', (e) => {
+        if (e.target.className === 'like-btn'){
+          const parentDiv = e.target.closest('.card');
+          const counter = parentDiv.querySelector(".like-counter");
+          counter.textContent = parseInt(counter.textContent) + 1;
+        }
+      })
+    })
+};
+
+addToyForm.onsubmit = (e) => {
+  e.preventDefault();
+  const name = e.target.querySelector('input[name="name"]');
+  const img = e.target.querySelector('input[name="image"]');
+  const newToyData = {
+    id: newId,
+    name: name.value,
+    image: img.value,
+    likes: 0
+  }
+  newId++;
+  appendToy(newToyData);
 };
 
 listToys();
