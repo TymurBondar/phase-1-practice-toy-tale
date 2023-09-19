@@ -55,16 +55,16 @@ function createLike(nOfLikes) {
   return likes
 }
 
-function appendToy(toyData) {
+function appendToy(toy) {
   currentId++;
-  let toy = document.createElement("div");
-  toy.className = 'card';
-  toy.textContent = toyData.name;
-  let img = createImg(toyData.image);
-  let likes = createLike(toyData.likes);
-  let btn = createBtn(toyData.id);
-  toy.append(img, likes, btn);
-  return document.querySelector("#toy-collection").append(toy)
+  let card = document.createElement("div");
+  card.className = 'card';
+  card.textContent = toy.name;
+  let img = createImg(toy.image);
+  let likes = createLike(toy.likes);
+  let btn = createBtn(toy.id);
+  card.append(img, likes, btn);
+  return document.querySelector("#toy-collection").append(card)
 }
 
 function listToys() {
