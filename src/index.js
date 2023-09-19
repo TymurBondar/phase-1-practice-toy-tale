@@ -21,8 +21,22 @@ function createBtn(id) {
   btn.className = "like-btn";
   btn.textContent = "Like ❤️";
   btn.id = id;
+  btn.addEventListener('click', (e) => {
+    const parentDiv = e.target.closest('.card');
+    const counter = parentDiv.querySelector(".like-counter");
+    counter.textContent = parseInt(counter.textContent) + 1;
+    fetch(`http://localhost:3000/toys/${e.target.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        likes: parseInt(counter.textContent)
+      })
+    })
+  })
   return btn
-};
+}
 
 function createImg(link) {
   let img = document.createElement("img");
@@ -60,23 +74,7 @@ function listToys() {
       toys.forEach(toy => {
         appendToy(toy);
       });
-      document.body.addEventListener('click', (e) => {
-        if (e.target.className === 'like-btn') {
-          const parentDiv = e.target.closest('.card');
-          const counter = parentDiv.querySelector(".like-counter");
-          counter.textContent = parseInt(counter.textContent) + 1;
-          fetch(`http://localhost:3000/toys/${e.target.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-              likes: parseInt(counter.textContent)
-            })
-          })
-        }
-      })
-    })
+    });
 };
 
 addToyForm.onsubmit = (e) => {
