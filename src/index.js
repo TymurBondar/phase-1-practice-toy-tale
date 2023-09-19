@@ -1,19 +1,12 @@
-let addToy = false;
 const addToyForm = document.querySelector(".add-toy-form");
+const addBtn = document.querySelector("#new-toy-btn");
+
+let addToy = false;
 let currentId = 1;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const addBtn = document.querySelector("#new-toy-btn");
-  const toyFormContainer = document.querySelector(".container");
-  addBtn.addEventListener("click", () => {
-    // hide & seek with the form
-    addToy = !addToy;
-    if (addToy) {
-      toyFormContainer.style.display = "block";
-    } else {
-      toyFormContainer.style.display = "none";
-    }
-  });
+addBtn.addEventListener("click", () => {
+  addToy = !addToy;
+  document.querySelector(".container").style.display = addToy ? "block" : "none";
 });
 
 function createBtn(id) {
