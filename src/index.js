@@ -52,11 +52,12 @@ function appendToy(toy) {
   currentId++;
   let card = document.createElement("div");
   card.className = 'card';
-  card.textContent = toy.name;
+  let name = document.createElement("h2");
+  name.textContent = toy.name;
   let img = createImg(toy.image);
   let likes = createLike(toy.likes);
   let btn = createBtn(toy.id);
-  card.append(img, likes, btn);
+  card.append(name, img, likes, btn);
   return document.querySelector("#toy-collection").append(card)
 }
 
