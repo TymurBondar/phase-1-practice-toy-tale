@@ -1,6 +1,6 @@
 let addToy = false;
 const addToyForm = document.querySelector(".add-toy-form");
-let newId = 9;
+let newId = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
@@ -49,7 +49,8 @@ function appendToy(toyData) {
   let likes = createLike(toyData.likes);
   let btn = createBtn(toyData.id);
   toy.append(img, likes, btn);
-  return document.querySelector("#toy-collection").append(toy);
+  newId++;
+  return document.querySelector("#toy-collection").append(toy)
 }
 
 function listToys() {
@@ -60,10 +61,19 @@ function listToys() {
         appendToy(toy);
       });
       document.body.addEventListener('click', (e) => {
-        if (e.target.className === 'like-btn'){
+        if (e.target.className === 'like-btn') {
           const parentDiv = e.target.closest('.card');
           const counter = parentDiv.querySelector(".like-counter");
           counter.textContent = parseInt(counter.textContent) + 1;
+          fetch(`http://localhost:3000/toys/${e.target.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              likes: parseInt(counter.textContent)
+            })
+          })
         }
       })
     })
@@ -79,8 +89,22 @@ addToyForm.onsubmit = (e) => {
     image: img.value,
     likes: 0
   }
-  newId++;
-  appendToy(newToyData);
-};
+  fetch("http://localhost:3000/toys", {
+    method: 'POST',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({
+      "id": newToyData.id,
+      "name": newToyData.name,
+      "image": newToyData.image,
+      "likes": newToyData.likes
+    })
+  })
+    .then(res => res.json())
+    .then(() => {
+      appendToy(newToyData);
+    });
+}
 
 listToys();
