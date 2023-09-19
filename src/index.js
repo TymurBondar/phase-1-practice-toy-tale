@@ -1,6 +1,6 @@
 let addToy = false;
 const addToyForm = document.querySelector(".add-toy-form");
-let newId = 1;
+let newId = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
@@ -62,8 +62,8 @@ function appendToy(toyData) {
   let img = createImg(toyData.image);
   let likes = createLike(toyData.likes);
   let btn = createBtn(toyData.id);
-  toy.append(img, likes, btn);
   newId++;
+  toy.append(img, likes, btn);
   return document.querySelector("#toy-collection").append(toy)
 }
 
